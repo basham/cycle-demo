@@ -47,7 +47,7 @@ module.exports = {
     loaders: [
       {
         test: /\.(css|less)$/,
-        loader: 'style!css?modules&localIdentName=[path][local]_[hash:base64:5]!autoprefixer!less'
+        loader: 'style!css?modules&localIdentName=[path][name]-[local]_[hash:base64:5]!autoprefixer!less'
       },
       {
         test: /\.html$/,
