@@ -11,9 +11,12 @@ module.exports = {
   context: paths.source,
   entry: {
     main: [
-      'webpack-dev-server/client?http://localhost:8080', // WebpackDevServer host and port
+      // WebpackDevServer host and port.
+      'webpack-dev-server/client?http://localhost:8080',
+      // Hot module reloading behavior. Ignores automatic browser refreshes.
       'webpack/hot/only-dev-server',
-      './index.js' // Your appʼs entry point
+      // Main entry point.
+      './index.js'
     ]
   },
   output: {
@@ -28,10 +31,10 @@ module.exports = {
     // instead of resolving to its loaders.
     root: paths.node
   },
+  // WebpackDevServer config.
   devServer: {
-    //contentBase: './src',
-    noInfo: true, //  --no-info option
-    hot: true
+    hot: true,
+    noInfo: true
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
