@@ -1,7 +1,7 @@
 /** @jsx hJSX */
 import {run, Rx} from '@cycle/core';
-import {makeDOMDriver, h, hJSX} from '@cycle/dom';
-import makeRouterDriver from 'cycle-director';
+import {makeDOMDriver, hJSX} from '@cycle/dom';
+import {makeRouterDriver} from 'cycle-router5';
 
 import Search from './Search';
 
@@ -11,35 +11,49 @@ if(module.hot) {
 
 let routes = [
   {
-    url: '/',
-    on: () => { return h('search') },
-    name: 'Home'
+    name: 'home',
+    path: '/',
+    component: () => { return <search/> }
   },
   {
-    url: '/hello',
-    on: () => { return h('h2', 'another route!') },
-    name: 'HELLO, YOU!'
+    name: 'hello',
+    path: '/hello',
+    component: () => { return <h2>wahoo</h2> }
   }
 ];
 
-function view(output) {
-  return (
+function intent(Router) {
+  return {
+    transition$: Router.addListener()
+  };
+}
+
+function model(actions) {
+  return actions.transition$.map(({toState, fromState}) => {
+    // Since Router5 doesn't allow arbitrary data to be forwarded through it,
+    // find the original route object and initiate its component.
+    let route = routes.filter(({name}) => name === toState.name)[0];
+    let component = route.component();
+    let name = toState.name;
+    return {name, component};
+  });
+}
+
+function view(state$) {
+  return state$.map(({name, component}) =>
     <div>
-      <p>Oh, hi</p>
+      <p>Hi, {name}</p>
       <a href="#/">Home</a>
       <a href="#/hello">Hello</a>
-      {output}
+      {component}
     </div>
   );
 }
 
-function main({DOM, Router}) {
-  let route$ = Rx.Observable.from(routes);
-  let view$ = Router
-    .map((output) => view(output));
+function main({Router}) {
   return {
-    DOM: view$,
-    Router: route$
+    DOM: view(model(intent(Router))),
+    Router: Rx.Observable.from(['start'])
   }
 }
 
@@ -47,8 +61,8 @@ run(main, {
   DOM: makeDOMDriver('#app', {
     'search': Search
   }),
-  Router: makeRouterDriver({
-    html5history: false,
-    notFound: () => { return 'Page not found' }
+  Router: makeRouterDriver(routes, {
+    defaultRoute: 'hello',
+    useHash: true
   })
 });
