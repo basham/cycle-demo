@@ -13,21 +13,21 @@ function intent(Router) {
 function model(actions) {
   return actions.transition$.map(({toState, fromState}) => {
     // Since Router5 doesn't allow arbitrary data to be forwarded through it,
-    // find the original route object and initiate its component.
+    // find the original route object and initiate its handler.
     let route = routes.filter(({name}) => name === toState.name)[0];
-    let component = route.component();
+    let handler = route.handler();
     let name = toState.name;
-    return {name, component};
+    return {name, handler};
   });
 }
 
 function view(state$) {
-  return state$.map(({name, component}) =>
+  return state$.map(({name, handler}) =>
     <div>
       <p>Hi, {name}</p>
       <a href="#/">Home</a>
       <a href="#/hello">Hello</a>
-      {component}
+      {handler}
     </div>
   );
 }

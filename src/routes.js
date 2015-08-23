@@ -5,11 +5,11 @@ export const routes = [
   {
     name: 'home',
     path: '/',
-    component: () => <search/>
+    handler: () => <search/>
   },
   {
     name: 'hello',
     path: '/hello',
-    component: () => <h2>wahoo</h2>
+    handler: () => <h2>wahoo</h2>
   }
 ];
