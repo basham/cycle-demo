@@ -1,6 +1,5 @@
-/** @jsx hJSX */
 import {run} from '@cycle/core';
-import {makeDOMDriver, hJSX} from '@cycle/dom';
+import {makeDOMDriver} from '@cycle/dom';
 import {makeRouterDriver} from 'cycle-router5';
 
 import {routes} from './routes';
