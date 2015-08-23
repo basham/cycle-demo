@@ -37,9 +37,7 @@ function view(state$) {
 }
 
 export default function Search({DOM}) {
-  let actions = intent(DOM);
-  let state$ = model(actions);
   return {
-    DOM: view(state$)
+    DOM: view(model(intent(DOM)))
   };
 }
