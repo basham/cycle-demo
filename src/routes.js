@@ -5,11 +5,11 @@ export const routes = [
   {
     name: 'home',
     path: '/',
-    component: () => { return <search/> }
+    component: () => <search/>
   },
   {
     name: 'hello',
     path: '/hello',
-    component: () => { return <h2>wahoo</h2> }
+    component: () => <h2>wahoo</h2>
   }
 ];
