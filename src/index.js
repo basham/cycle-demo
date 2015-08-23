@@ -4,7 +4,7 @@ import {makeRouterDriver} from 'cycle-router5';
 
 import {routes} from './routes';
 import main from './main';
-import Search from './Search';
+import Search from './components/Search';
 
 if(module.hot) {
   module.hot.accept();
