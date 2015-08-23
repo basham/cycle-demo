@@ -14,17 +14,17 @@ function model(actions) {
   return actions.transition$.map(({toState, fromState}) => {
     // Since Router5 doesn't allow arbitrary data to be forwarded through it,
     // find the original route object and initiate its handler.
-    let route = routes.filter(({name}) => name === toState.name)[0];
+    let routeName = toState.name;
+    let route = routes.filter(({name}) => name === routeName)[0];
     let handler = route.handler();
-    let name = toState.name;
-    return {name, handler};
+    return {routeName, handler};
   });
 }
 
 function view(state$, Router) {
-  return state$.map(({name, handler}) =>
+  return state$.map(({routeName, handler}) =>
     <div>
-      <p>Hi, {name}</p>
+      <p>Hi, {routeName}</p>
       <a href={Router.buildUrl('home')}>Home</a>
       <a href={Router.buildUrl('hello')}>Hello</a>
       {handler}
