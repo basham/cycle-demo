@@ -3,7 +3,7 @@ import {Rx} from '@cycle/core';
 import {hJSX} from '@cycle/dom';
 import classNames from 'classnames';
 
-import formStyles from './Form.less';
+import styles from './Search.less';
 import headerStyles from './Header.less';
 
 function intent(DOM) {
@@ -23,12 +23,12 @@ function model(actions) {
 function view(state$) {
   return state$.map(({name}) =>
     <div>
-      <div className={formStyles.block}>
-        <label className={formStyles.label}>
+      <div className={styles.block}>
+        <label className={styles.label}>
           Name
         </label>
         <input
-          className={classNames(formStyles.textInput, 'js-name-input')}
+          className={classNames(styles.textInput, 'js-name-input')}
           type="text"/>
       </div>
       <h1 className={headerStyles.h1}>Hello {name}</h1>
