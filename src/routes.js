@@ -1,6 +1,8 @@
 /** @jsx hJSX */
 import {hJSX} from '@cycle/dom';
 
+import Search from './components/Search';
+
 export const routes = [
   {
     name: 'home',
@@ -13,6 +15,6 @@ export const routes = [
 ];
 
 export const handlers = {
-  'home': () => <search/>,
+  'home': (sources) => Search(sources).DOM,
   'hello': () => <h2>wahoos!</h2>
 }

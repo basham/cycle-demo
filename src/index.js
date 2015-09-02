@@ -4,16 +4,13 @@ import {makeRouterDriver} from 'cycle-router5';
 
 import {routes} from './routes';
 import main from './main';
-import Search from './components/Search';
 
 if(module.hot) {
   module.hot.accept();
 }
 
 run(main, {
-  DOM: makeDOMDriver('#app', {
-    'search': Search
-  }),
+  DOM: makeDOMDriver('#app'),
   Router: makeRouterDriver(routes, {
     defaultRoute: 'hello',
     useHash: true

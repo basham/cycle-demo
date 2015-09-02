@@ -10,13 +10,13 @@ function intent(Router) {
   };
 }
 
-function model(actions) {
+function model(actions, sources) {
   return actions.transition$.map(({toState, fromState}) => {
     // Since Router5 doesn't allow arbitrary data to be forwarded through it,
     // find and initiate the route's handler.
     let routeName = toState.name;
     let handler = handlers[routeName];
-    let content = handler();
+    let content = handler(sources);
     return {routeName, content};
   });
 }
@@ -32,9 +32,10 @@ function view(state$, Router) {
   );
 }
 
-export default function main({Router}) {
+export default function main(sources) {
+  let {Router} = sources;
   let actions = intent(Router);
-  let state$ = model(actions);
+  let state$ = model(actions, sources);
   let view$ = view(state$, Router);
   return {
     DOM: view$,

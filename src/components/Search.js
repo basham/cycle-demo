@@ -8,7 +8,7 @@ import headerStyles from './Header.less';
 
 function intent(DOM) {
   return {
-    changeName$: DOM.get('.js-name-input', 'input')
+    changeName$: DOM.select('.js-name-input').events('input')
       .map(ev => ev.target.value)
   };
 }
@@ -37,7 +37,10 @@ function view(state$) {
 }
 
 export default function Search({DOM}) {
+  let actions = intent(DOM);
+  let state$ = model(actions);
+  let view$ = view(state$);
   return {
-    DOM: view(model(intent(DOM)))
+    DOM: view$
   };
 }
