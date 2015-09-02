@@ -18,3 +18,5 @@ export const handlers = {
   'home': (sources) => Search(sources).DOM,
   'hello': () => <h2>wahoos!</h2>
 }
+
+export const defaultRoute = 'hello';
