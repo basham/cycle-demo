@@ -4,12 +4,15 @@ import {hJSX} from '@cycle/dom';
 export const routes = [
   {
     name: 'home',
-    path: '/',
-    handler: () => <search/>
+    path: '/'
   },
   {
     name: 'hello',
-    path: '/hello',
-    handler: () => <h2>wahoo</h2>
+    path: '/hello'
   }
 ];
+
+export const handlers = {
+  'home': () => <search/>,
+  'hello': () => <h2>wahoos!</h2>
+}
